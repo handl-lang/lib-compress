@@ -1,3 +1,10 @@
 -- lib-compress: modules this package provides (entry defaults to
 -- src/index.hnl; N modules resolve to src/<name>/index.hnl).
-{ modules: ["compress"] }
+{
+  modules: ["compress"],
+  name: "compress",
+  description: "Compression contract — codec types plus the laws every backend must satisfy.",
+  license: "MIT",
+  keywords: ["compress", "codec", "contract", "stdlib"],
+  homepage: "https://github.com/handl-lang/lib-compress",
+}
