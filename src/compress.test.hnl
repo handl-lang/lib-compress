@@ -1,0 +1,19 @@
+--- Smoke tests for the `compress` contract module (`src/index.hnl`).
+---
+--- The codec arrows themselves are backend-provided (`~[1]~>` effectful
+--- ffi); what this module contributes in pure handl are the type
+--- aliases and the `id`/`roundtrip`/`absorb` law combinators. `id` is
+--- directly callable; `roundtrip`/`absorb` return graded (`~>[2]~>`)
+--- compositions the eval engine does not reduce, so they are covered
+--- by an existence assert here — the codec backends
+--- (`lib-compress-zlib-c`, …) carry the behavioural round-trip tests.
+
+from "./index" import * as m
+
+test_id_num := assert m.id(41) == 41
+
+test_id_str := assert m.id("x") == "x"
+
+test_id_record := assert m.id({ a: 1 }) == { a: 1 }
+
+test_surface := assert m.roundtrip != null && m.absorb != null
