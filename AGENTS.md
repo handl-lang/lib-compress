@@ -1,3 +1,30 @@
+# lib-compress
+
+`compress` — the compression **contract**: codec types plus the laws
+every backend must satisfy. Pure `.hnl` port; implementations live in
+sibling backend repos (`lib-compress-gzip-c`, `lib-compress-zlib-c`).
+
+## Layout
+
+| path | role |
+| --- | --- |
+| `src/index.hnl` | the contract — codec types + laws |
+| `pkg.hnl` | manifest — `modules: ["compress"]` |
+| `scripts/hnl-gate.sh` | `.hnl` gate |
+| `workflows/gate.yaml` | CI — shared `handl-gates` campaign |
+
+## Contract
+
+- Contract-only repo: declare the surface and laws here; do not add a
+  concrete codec — backends are separate packages that depend on
+  `compress` (`branch:main`).
+
+## Verification
+
+```bash
+HNL=../host-cli/target/debug/hnl scripts/hnl-gate.sh
+```
+
 <!-- myco:agent-awareness -->
 
 ## Agent awareness
