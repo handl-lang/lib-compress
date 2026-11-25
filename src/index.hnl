@@ -9,8 +9,8 @@
 --- `~[1]~>` marks the codec arrows as effectful: every current backend
 --- reaches a foreign library through `ffi.call`.
 
-export Compress   := (Bytes) ~[1]~> Bytes
-export Decompress := (Bytes) ~[1]~> Bytes
+export Compress   := (Bytes) ~>[1] Bytes
+export Decompress := (Bytes) ~>[1] Bytes
 
 --- The identity arrow, named so the laws can mention it.
 export id := (x) ~> x
@@ -19,10 +19,10 @@ export id := (x) ~> x
 --- encoder produced returns the input bytes. Quantified over the contract
 --- signatures so any backend can be checked against it.
 export roundtrip := (compress: Compress, decompress: Decompress) ~>
-  (compress >>> decompress) ~[2]~> id
+  (compress >>> decompress) ~>[2] id
 
 --- Derived form: compress absorbs a trailing decompress ∘ compress
 --- round-trip. Follows from `roundtrip` by right-composition with
 --- compress.
 export absorb := (compress: Compress, decompress: Decompress) ~>
-  (compress >>> decompress >>> compress) ~[2]~> compress
+  (compress >>> decompress >>> compress) ~>[2] compress
